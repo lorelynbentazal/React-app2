@@ -1,13 +1,14 @@
-node {
-  stage('SCM') {
-    checkout scm
-  }
-  stage('SonarQube Analysis') {
-    def scannerHome = tool 'SonarScanner';
-    withSonarQubeEnv('sonarqube') {
-      sh "${scannerHome}/bin/sonar-scanner \
-      -Dsonar.projectKey=Jenkins \
-      -Dsonar.sources=. "
-    }
-  }
-}
+pipeline {
+    stages {
+        stage('SAST') {
+            environment {
+                SCANNER_HOME = tool 'SonarScanner'
+            }
+            steps {
+                withSonarQubeEnv('sonarqube') {
+                    sh" ${SCANNER_HOME}}/bin/sonar-scanner \
+                    -Dsonar.projectKey=simple_webapp \
+                    -Dsonar.sources=. "
+                }
+            }
+        }
