@@ -7,9 +7,7 @@ pipeline {
             }
             steps {
                 withSonarQubeEnv('sonarqube') {
-                    sh" ${SCANNER_HOME}}/bin/sonar-scanner \
-                    -Dsonar.projectKey=Jenkins \
-                    -Dsonar.sources=. "
+                    sh" ${SCANNER_HOME}}/bin/sonar-scanner"
                 }
             }
         }
